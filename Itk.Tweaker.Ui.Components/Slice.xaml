@@ -1,0 +1,42 @@
+﻿<HeaderedContentControl x:Class="Itk.Tweaker.Ui.Components.Slice"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+    <HeaderedContentControl.Resources>
+        <materialDesign:NullableToVisibilityConverter x:Key="NullableToVisibilityConverter"/>
+    </HeaderedContentControl.Resources>
+    <ContentControl.Template>
+        <ControlTemplate TargetType="HeaderedContentControl">
+            <DockPanel>
+                <Slider
+                    DockPanel.Dock="Bottom"
+                    TickFrequency="5"
+                    Orientation="Horizontal"
+                    Minimum="1"
+                    Maximum="50"
+                    Value="25"
+                    Margin="16 0" />
+                <Slider
+                    DockPanel.Dock="Right"
+                    TickFrequency="5"
+                    TickPlacement="BottomRight"
+                    Orientation="Vertical"
+                    Minimum="1"
+                    Maximum="50"
+                    Margin="0 16" />
+                <materialDesign:Card Padding="16" Margin="16" DockPanel.Dock="Left">
+                    <DockPanel>
+                        <ContentPresenter
+                            DockPanel.Dock="Top"
+                            ContentSource="Header"
+                            Visibility="{TemplateBinding Header, Converter={StaticResource NullableToVisibilityConverter}}"
+                        />
+                        <ContentPresenter 
+                            DockPanel.Dock="Bottom"
+                            VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </DockPanel>
+                </materialDesign:Card>
+            </DockPanel>
+        </ControlTemplate>
+    </ContentControl.Template>
+</HeaderedContentControl>

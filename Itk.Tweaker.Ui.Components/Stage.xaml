@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="Itk.Tweaker.Ui.Components.Stage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:components="clr-namespace:Itk.Tweaker.Ui.Components"
+             MouseMove="Stage_OnMouseMove"
+             MouseEnter="Stage_OnMouseEnter"
+             MouseLeave="Stage_OnMouseLeave">
+    <materialDesign:Card Padding="16">
+        <DockPanel>
+            <UniformGrid Rows="1" Margin="0 16 0 0" DockPanel.Dock="Bottom">
+                <Button Name="RemoveStageButton" Click="RemoveStage" Margin="4 0">
+                    <materialDesign:PackIcon Kind="Delete" />
+                </Button>
+                <Button Name="ConfigureStageButton" Margin="4 0">
+                    <materialDesign:PackIcon Kind="Cog" />
+                </Button>
+                <Button Name="NextStageButton" Margin="4 0">
+                    <materialDesign:PackIcon Kind="ImageFilterBlackWhite" />
+                </Button>
+            </UniformGrid>
+            <components:DicomImage DockPanel.Dock="Top" HorizontalAlignment="Center"/>
+        </DockPanel>
+    </materialDesign:Card>
+    <UserControl.Style>
+        <Style TargetType="components:Stage">
+            <Setter Property="Opacity" Value="0.5" />
+            <Style.Triggers>
+                <DataTrigger
+                    Binding="{Binding Status, 
+                        RelativeSource={RelativeSource Self}}"
+                    Value="{x:Static components:Stage+State.Selected}">
+                    <Setter Property="Control.Opacity" Value="1.0" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Style>
+</UserControl>

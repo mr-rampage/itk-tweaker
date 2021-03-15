@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Compile Include="ItkImageLoader.fs" />
+      <Content Include="..\..\SimpleITK-2.0.2-CSharp-win64-x64\SimpleITKCSharpNative.dll">
+        <Link>SimpleITKCSharpNative.dll</Link>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Compile Include="ItkImagePipelines.fs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="SimpleITKCSharpManaged, Version=2.0.0.512, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\..\SimpleITK-2.0.2-CSharp-win64-x64\SimpleITKCSharpManaged.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Pipeline.Core\Pipeline.Core.fsproj" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net5.0-windows</TargetFramework>
+        <UseWPF>true</UseWPF>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MaterialDesignThemes" Version="4.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Itk.Tweaker.Ui.Components\Itk.Tweaker.Ui.Components.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="SimpleITKCSharpManaged, Version=2.0.0.512, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\..\SimpleITK-2.0.2-CSharp-win64-x64\SimpleITKCSharpManaged.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+</Project>
