@@ -4,19 +4,19 @@ using System.Windows.Input;
 
 namespace Itk.Tweaker.Ui.Components
 {
-    public partial class Stage
+    public partial class DicomSourceStage
     {
         public enum State
         {
             Unselected, Selected
         }
-        public Stage()
+        public DicomSourceStage()
         {
             InitializeComponent();
         }
         
         public static readonly DependencyProperty StatusProperty =
-            DependencyProperty.Register(nameof(Status), typeof(State), typeof(Stage), 
+            DependencyProperty.Register(nameof(Status), typeof(State), typeof(DicomSourceStage), 
                 new PropertyMetadata(State.Unselected));
 
         public State Status 
@@ -25,14 +25,6 @@ namespace Itk.Tweaker.Ui.Components
             private set => SetValue(StatusProperty, value);
         }
 
-        public static readonly DependencyProperty PreviousStageProperty =
-            DependencyProperty.Register(nameof(PreviousStage), typeof(Stage), typeof(Stage));
-
-        public Stage PreviousStage
-        {
-            private get => (Stage) GetValue(PreviousStageProperty);
-            set => SetValue(PreviousStageProperty, value);
-        }
         private void RemoveStage(object sender, RoutedEventArgs e)
         {
             Parent.RemoveChild(this);

@@ -25,6 +25,6 @@
             VerticalAlignment="Stretch"
             Background="Transparent"
             >
-        <components:Stage />
+        <components:DicomSourceStage />
     </Canvas>
 </Window>
