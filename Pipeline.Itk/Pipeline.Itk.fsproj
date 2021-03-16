@@ -5,11 +5,14 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Compile Include="ItkImage.fs" />
       <Compile Include="ItkImageLoader.fs" />
       <Content Include="..\..\SimpleITK-2.0.2-CSharp-win64-x64\SimpleITKCSharpNative.dll">
         <Link>SimpleITKCSharpNative.dll</Link>
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
+      <Compile Include="ItkSlice.fs" />
+      <Compile Include="ItkResize.fs" />
       <Compile Include="ItkImagePipelines.fs" />
     </ItemGroup>
 
@@ -17,10 +20,6 @@
       <Reference Include="SimpleITKCSharpManaged, Version=2.0.0.512, Culture=neutral, PublicKeyToken=null">
         <HintPath>..\..\SimpleITK-2.0.2-CSharp-win64-x64\SimpleITKCSharpManaged.dll</HintPath>
       </Reference>
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\Pipeline.Core\Pipeline.Core.fsproj" />
     </ItemGroup>
 
 </Project>

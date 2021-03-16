@@ -22,7 +22,7 @@ namespace Itk.Tweaker.Ui.Components
             {
                 var image = ItkImageLoader.Load.Invoke(dicomFolder);
                 var thumbnail = ItkImagePipelines.
-                    CreateThumbnail(ItkImagePipelines.Axis.Z, 256, image);
+                    CreateThumbnail(ItkImage.Axis.Z, 256, image);
 
                 return (
                     image.IsOk ? image.ResultValue : null,
