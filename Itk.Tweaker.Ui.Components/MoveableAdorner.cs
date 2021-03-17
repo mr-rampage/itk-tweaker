@@ -14,11 +14,11 @@ namespace Itk.Tweaker.Ui.Components
 
         private static void Stage_OnMouseMove(object sender, MouseEventArgs mouseEventArgs)
         {
-            if (sender is not DicomStage dicomStage) return;
+            if (sender is not FrameworkElement element) return;
             if (Mouse.LeftButton is not MouseButtonState.Pressed) return;
-            var point = Mouse.GetPosition(dicomStage.Parent as FrameworkElement);
-            Canvas.SetTop(dicomStage, point.Y - dicomStage.ActualHeight / 2);
-            Canvas.SetLeft(dicomStage, point.X - dicomStage.ActualWidth / 2);
+            var point = Mouse.GetPosition(element.Parent as FrameworkElement);
+            Canvas.SetTop(element, point.Y - element.ActualHeight / 2);
+            Canvas.SetLeft(element, point.X - element.ActualWidth / 2);
         }
 
     }
