@@ -8,9 +8,9 @@ namespace Itk.Tweaker.Ui.Components
     {
     }
 
-    public class DicomStageBase : UserControl, IDicomStage
+    public class DicomStage : ContentControl, IDicomStage
     {
-        protected DicomStageBase()
+        protected DicomStage()
         {
             Loaded += OnLoaded;
             Unloaded += OnUnloaded;
@@ -37,7 +37,7 @@ namespace Itk.Tweaker.Ui.Components
         }
 
         public static readonly DependencyProperty StatusProperty =
-            DependencyProperty.Register(nameof(Status), typeof(State), typeof(DicomStageBase),
+            DependencyProperty.Register(nameof(Status), typeof(State), typeof(DicomStage),
                 new PropertyMetadata(State.Unselected));
 
         public State Status
@@ -48,7 +48,7 @@ namespace Itk.Tweaker.Ui.Components
 
         private static void Stage_OnMouseMove(object sender, MouseEventArgs e)
         {
-            if (sender is not DicomStageBase dicomStage) return;
+            if (sender is not DicomStage dicomStage) return;
             if (Mouse.LeftButton is not MouseButtonState.Pressed) return;
             var point = Mouse.GetPosition(dicomStage.Parent as FrameworkElement);
             Canvas.SetTop(dicomStage, point.Y - dicomStage.ActualHeight / 2);
@@ -57,13 +57,13 @@ namespace Itk.Tweaker.Ui.Components
 
         private static void Stage_OnMouseEnter(object sender, MouseEventArgs e)
         {
-            if (sender is DicomStageBase dicomStage)
+            if (sender is DicomStage dicomStage)
                 dicomStage.Status = State.Selected;
         }
 
         private static void Stage_OnMouseLeave(object sender, MouseEventArgs e)
         {
-            if (sender is DicomStageBase dicomStage)
+            if (sender is DicomStage dicomStage)
                 dicomStage.Status = State.Unselected;
         }
 
