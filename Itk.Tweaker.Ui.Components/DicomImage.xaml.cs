@@ -20,7 +20,7 @@ namespace Itk.Tweaker.Ui.Components
         public Image ItkImage
         {
             get => (Image)GetValue(ItkImageProperty);
-            private set => SetValue(ItkImageProperty, value);
+            set => SetValue(ItkImageProperty, value);
         }
         
         private async void OnDicomImageSelected(object sender, RoutedEventArgs e)

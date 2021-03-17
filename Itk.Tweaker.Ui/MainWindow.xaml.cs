@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows;
 using Itk.Tweaker.Ui.Components;
 
 namespace Itk.Tweaker.Ui
@@ -11,6 +12,11 @@ namespace Itk.Tweaker.Ui
         public MainWindow()
         {
             InitializeComponent();
+            Loaded += OnLoaded;
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
             Pipeline.Add(new DicomSourceStage());
         }
 

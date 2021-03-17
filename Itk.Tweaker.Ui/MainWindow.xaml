@@ -25,12 +25,9 @@
         <Style TargetType="{x:Type components:DicomStage}">
             <Setter Property="Opacity" Value="0.5" />
             <Style.Triggers>
-                <DataTrigger
-                    Binding="{Binding Status, 
-                        RelativeSource={RelativeSource Self}}"
-                    Value="{x:Static components:DicomStage+State.Selected}">
+                <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Control.Opacity" Value="1.0" />
-                </DataTrigger>
+                </Trigger>
             </Style.Triggers>
         </Style>
         <Style TargetType="components:DicomSourceStage" BasedOn="{StaticResource {x:Type components:DicomStage}}" />
@@ -39,8 +36,7 @@
     <ItemsControl ItemsSource="{Binding 
         RelativeSource={RelativeSource AncestorType=ui:MainWindow},
         Path=Pipeline,
-        Mode=OneWay}"
-        >
+        Mode=OneWay}">
         <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
                 <Canvas 
