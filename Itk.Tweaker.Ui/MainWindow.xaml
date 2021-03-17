@@ -3,13 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:components="clr-namespace:Itk.Tweaker.Ui.Components;assembly=Itk.Tweaker.Ui.Components"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:ui="clr-namespace:Itk.Tweaker.Ui"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}">
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        components:PipelineAction.PipelineAction="HandlePipelineEvents"
+        >
     <Window.Resources>
         <DataTemplate x:Key="SliceHeaderTemplate">
             <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}"
@@ -19,12 +22,38 @@
         <Style TargetType="components:Slice">
             <Setter Property="HeaderTemplate" Value="{StaticResource SliceHeaderTemplate}"/>
         </Style>
+        <Style TargetType="{x:Type components:DicomStageBase}">
+            <Setter Property="Opacity" Value="0.5" />
+            <Style.Triggers>
+                <DataTrigger
+                    Binding="{Binding Status, 
+                        RelativeSource={RelativeSource Self}}"
+                    Value="{x:Static components:DicomStageBase+State.Selected}">
+                    <Setter Property="Control.Opacity" Value="1.0" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="components:DicomSourceStage" BasedOn="{StaticResource {x:Type components:DicomStageBase}}" />
+        <Style TargetType="components:DicomTransformStage" BasedOn="{StaticResource {x:Type components:DicomStageBase}}" />
     </Window.Resources>
-    <Canvas 
-            HorizontalAlignment="Stretch" 
-            VerticalAlignment="Stretch"
-            Background="Transparent"
-            >
-        <components:DicomSourceStage />
-    </Canvas>
+    <ItemsControl ItemsSource="{Binding 
+        RelativeSource={RelativeSource AncestorType=ui:MainWindow},
+        Path=Pipeline,
+        Mode=OneWay}"
+        >
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <Canvas 
+                    HorizontalAlignment="Stretch" 
+                    VerticalAlignment="Stretch"
+                    Background="Transparent">
+                </Canvas>
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemTemplate>
+            <DataTemplate>
+                <ContentControl Content="{Binding}" />
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+    </ItemsControl>
 </Window>

@@ -1,8 +1,8 @@
 ﻿namespace Itk.Tweaker.Ui.Components
 {
-    public partial class DicomSourceStage
+    public partial class DicomTransformStage
     {
-        public DicomSourceStage()
+        public DicomTransformStage()
         {
             InitializeComponent();
         }

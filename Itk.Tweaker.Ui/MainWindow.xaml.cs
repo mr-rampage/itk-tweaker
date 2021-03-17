@@ -1,4 +1,7 @@
-﻿namespace Itk.Tweaker.Ui
+﻿using System.Collections.ObjectModel;
+using Itk.Tweaker.Ui.Components;
+
+namespace Itk.Tweaker.Ui
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -8,6 +11,23 @@
         public MainWindow()
         {
             InitializeComponent();
+            Pipeline.Add(new DicomSourceStage());
         }
+
+        private void HandlePipelineEvents(object sender, PipelineEventArg e)
+        {
+            switch (e)
+            {
+                case AddPipelineStageEvent:
+                    var transformStage = new DicomTransformStage();
+                    Pipeline.Add(transformStage);
+                    break;
+                case RemovePipelineStageEvent when e.OriginalSource is IDicomStage stage:
+                    Pipeline.Remove(stage);
+                    break;
+            }
+        }
+
+        public ObservableCollection<IDicomStage> Pipeline { get; } = new();
     }
 }
