@@ -9,32 +9,22 @@ using Pipeline.Itk;
 
 namespace Itk.Tweaker.Ui.Components
 {
-    public interface IDicom<out T>
+    public interface IDicom
     {
-        T Image { get; }
-        T Thumbnail { get; }
-        
-        public static async Task<IDicom<Image>> Load(DirectoryInfo dicomFolder)
+        public static async Task<IDicom> Load(DirectoryInfo dicomFolder)
         {
-            if (!dicomFolder.Exists) return new ItkDicom(null, null);
-
-            var (dicom, dicomThumbnail) = await Task.Run(() =>
+            return await Task.Run(() =>
             {
-                var image = ItkImageLoader.Load.Invoke(dicomFolder);
-                var thumbnail = ItkImagePipelines.
-                    CreateThumbnail(ItkImage.Axis.Z, 256, image);
-
-                return (
-                    image.IsOk ? image.ResultValue : null,
-                    thumbnail.IsOk ? thumbnail.ResultValue : null
-                );
+                var image = ItkImagePipelines.LoadImage(dicomFolder);
+                return image.IsOk
+                    ? new ValidDicom(image.ResultValue.Image, image.ResultValue.Thumbnail)
+                    : (IDicom) new InvalidDicom();
             });
-            return new ItkDicom(dicom, dicomThumbnail);
         }
     }
-    
-    public record ItkDicom(Image Image, Image Thumbnail) : IDicom<Image>;
-    
+
+    public record ValidDicom(Image Image, Image Thumbnail) : IDicom;
+    public record InvalidDicom : IDicom;
     
     public static class ItkImageExtensions
     {

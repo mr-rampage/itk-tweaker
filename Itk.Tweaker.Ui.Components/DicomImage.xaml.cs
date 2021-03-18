@@ -28,10 +28,11 @@ namespace Itk.Tweaker.Ui.Components
             if (sender is not SelectImageButton selectImageButton) return;
 
             var dicomFolder = selectImageButton.SelectedFolder;
-            var dicom = await IDicom<Image>.Load(dicomFolder);
+            var dicom = await IDicom.Load(dicomFolder);
 
-            ItkImage = dicom?.Image;
-            ImageThumbnail.Source = dicom?.Thumbnail?.AsImageSource(PixelFormats.Bgr32);
+            if (dicom is not ValidDicom validDicom) return;
+            ItkImage = validDicom.Image;
+            ImageThumbnail.Source = validDicom.Thumbnail.AsImageSource(PixelFormats.Bgr32);
         }
     }
 }

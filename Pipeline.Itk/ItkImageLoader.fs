@@ -3,7 +3,7 @@
 open System.IO
 open itk.simple
 
-let private LoadUsingItk (dicomPath: DirectoryInfo) =
+let internal LoadDicomFromFolder(dicomPath: DirectoryInfo) =
     try
         use imageSeriesReader = new ImageSeriesReader()
         use fileNames = ImageSeriesReader.GetGDCMSeriesFileNames dicomPath.FullName
@@ -12,5 +12,3 @@ let private LoadUsingItk (dicomPath: DirectoryInfo) =
         Ok(imageSeriesReader.Execute())
     with
     | e -> Error e
-    
-let Load = LoadUsingItk

@@ -1,5 +1,6 @@
 ﻿module Pipeline.Itk.ItkSlice
 
+open Pipeline.Itk.Combinators
 open Pipeline.Itk.ItkImage
 open itk.simple
 
@@ -27,3 +28,6 @@ let internal ItkSlice2D axis index (image: Image) =
     let index = SliceIndex axis index
     Ok(SimpleITK.Extract(image,size,index))
 
+let private DivideBy denominator numerator = int(numerator) / denominator
+let private MidSliceIndex axis = Pipe (CountSlices axis) (DivideBy 2)
+let internal ExtractMidSlice axis = Converge Chain ItkSlice2D MidSliceIndex axis

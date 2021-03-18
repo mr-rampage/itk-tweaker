@@ -1,14 +1,18 @@
 ﻿module Pipeline.Itk.ItkImagePipelines
 
+open System.IO
+open Pipeline.Itk.ItkImage
+open Pipeline.Itk.ItkImageLoader
 open Pipeline.Itk.ItkSlice
 open Pipeline.Itk.ItkResize
-open itk.simple
 
-let SelectMidSlice axis image =
-    let midSlice = int(CountSlices axis image) / 2
-    ItkSlice2D axis midSlice image
+let internal CreateDicomImage image =
+    image
+    |> ExtractMidSlice Axis.Z
+    |> Result.bind (ItkResize2D 256)
+    |> Result.map (fun thumbnail -> { Image = image; Thumbnail = thumbnail })
 
-let CreateThumbnail axis size (imageResult: Result<Image, exn>) =
-    imageResult
-      |> Result.bind (SelectMidSlice axis)
-      |> Result.bind (ItkResize2D size)
+let LoadImage (dicomFolder: DirectoryInfo) =
+    dicomFolder
+    |> LoadDicomFromFolder
+    |> Result.bind CreateDicomImage
