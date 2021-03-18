@@ -1,6 +1,8 @@
-﻿using System.Windows;
+﻿using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 using itk.simple;
+using Pipeline.Itk;
 
 namespace Itk.Tweaker.Ui.Components
 {
@@ -28,11 +30,11 @@ namespace Itk.Tweaker.Ui.Components
             if (sender is not SelectImageButton selectImageButton) return;
 
             var dicomFolder = selectImageButton.SelectedFolder;
-            var dicom = await IDicom.Load(dicomFolder);
+            var dicom = await Task.Run(() => ItkImagePipelines.LoadImage(dicomFolder));
 
-            if (dicom is not ValidDicom validDicom) return;
-            ItkImage = validDicom.Image;
-            ImageThumbnail.Source = validDicom.Thumbnail.AsImageSource(PixelFormats.Bgr32);
+            if (dicom.IsError) return;
+            ItkImage = dicom.ResultValue.Image;
+            ImageThumbnail.Source = dicom.ResultValue.Thumbnail.AsImageSource(PixelFormats.Bgr32);
         }
     }
 }

@@ -1,31 +1,11 @@
 ﻿using System;
-using System.IO;
 using System.Runtime.InteropServices;
-using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using itk.simple;
-using Pipeline.Itk;
 
 namespace Itk.Tweaker.Ui.Components
 {
-    public interface IDicom
-    {
-        public static async Task<IDicom> Load(DirectoryInfo dicomFolder)
-        {
-            return await Task.Run(() =>
-            {
-                var image = ItkImagePipelines.LoadImage(dicomFolder);
-                return image.IsOk
-                    ? new ValidDicom(image.ResultValue.Image, image.ResultValue.Thumbnail)
-                    : (IDicom) new InvalidDicom();
-            });
-        }
-    }
-
-    public record ValidDicom(Image Image, Image Thumbnail) : IDicom;
-    public record InvalidDicom : IDicom;
-    
     public static class ItkImageExtensions
     {
         public static ImageSource AsImageSource(this Image image, PixelFormat pf)
