@@ -30,7 +30,7 @@ namespace Itk.Tweaker.Ui.Components
             if (sender is not SelectImageButton selectImageButton) return;
 
             var dicomFolder = selectImageButton.SelectedFolder;
-            var dicom = await Task.Run(() => ItkImagePipelines.LoadImage(dicomFolder));
+            var dicom = await Task.Run(() => ItkImageLoader.LoadImage(dicomFolder));
 
             if (dicom.IsError) return;
             ItkImage = dicom.ResultValue.Image;

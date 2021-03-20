@@ -3,6 +3,7 @@
 open Pipeline.Itk.ItkImage
 open itk.simple
 
+exception InvalidDimensionsError of string
 
 let internal GetResampledDimensions (outputSize: int) (image: Image) =
     let inputSize = image.GetSize();
@@ -41,8 +42,6 @@ let private ItkResize (newDimensions: Dimension2D<double>*Dimension2D<double>) (
     filter.SetSize actualSize
     filter.SetOutputSpacing newSpacing
     filter.Execute(image)
-
-exception InvalidDimensionsError of string
     
 let internal ItkResize2D outputSize (image: Image) =
     let dimensions = image.GetDimension()

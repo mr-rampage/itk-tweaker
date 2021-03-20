@@ -16,10 +16,7 @@ let private SliceDimensions axis (image: Image) =
     size
     
 let private SliceIndex axis index =
-    let sliceIndex = new VectorInt32()
-    sliceIndex.Add(0)
-    sliceIndex.Add(0)
-    sliceIndex.Add(0)
+    let sliceIndex = new VectorInt32([0;0;0])
     sliceIndex.[AxisToVectorIndex(axis)] <- index
     sliceIndex
     
