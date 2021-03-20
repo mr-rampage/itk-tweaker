@@ -4,7 +4,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using itk.simple;
 
-namespace Itk.Tweaker.Ui.Components
+namespace Itk.Tweaker.Ui
 {
     public static class ItkImageExtensions
     {

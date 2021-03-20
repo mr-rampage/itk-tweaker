@@ -16,9 +16,10 @@ namespace Itk.Tweaker.Ui.Components
         {
             if (sender is not FrameworkElement element) return;
             if (Mouse.LeftButton is not MouseButtonState.Pressed) return;
-            var point = Mouse.GetPosition(element.Parent as FrameworkElement);
-            Canvas.SetTop(element, point.Y - element.ActualHeight / 2);
-            Canvas.SetLeft(element, point.X - element.ActualWidth / 2);
+            var parent = (element.Parent ?? element.TemplatedParent) as FrameworkElement;
+            var point = Mouse.GetPosition(null);
+            Canvas.SetTop(parent ?? element, point.Y - element.ActualHeight / 2);
+            Canvas.SetLeft(parent ?? element, point.X - element.ActualWidth / 2);
         }
 
     }

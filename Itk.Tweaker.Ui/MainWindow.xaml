@@ -11,8 +11,7 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        components:PipelineAction.PipelineAction="HandlePipelineEvents"
-        >
+        components:PipelineAction.PipelineAction="HandlePipelineEvents">
     <Window.Resources>
         <DataTemplate x:Key="SliceHeaderTemplate">
             <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}"
@@ -20,7 +19,7 @@
                        Text="{Binding}" />
         </DataTemplate>
         <Style TargetType="components:Slice">
-            <Setter Property="HeaderTemplate" Value="{StaticResource SliceHeaderTemplate}"/>
+            <Setter Property="HeaderTemplate" Value="{StaticResource SliceHeaderTemplate}" />
         </Style>
         <Style TargetType="{x:Type components:DicomStage}">
             <Setter Property="Opacity" Value="0.5" />
@@ -33,23 +32,32 @@
         <Style TargetType="components:DicomSourceStage" BasedOn="{StaticResource {x:Type components:DicomStage}}" />
         <Style TargetType="components:DicomTransformStage" BasedOn="{StaticResource {x:Type components:DicomStage}}" />
     </Window.Resources>
-    <ItemsControl ItemsSource="{Binding 
+    <ItemsControl
+        ItemsSource="{Binding 
         RelativeSource={RelativeSource AncestorType=ui:MainWindow},
         Path=Pipeline,
         Mode=OneWay}">
+        <ItemsControl.ItemTemplateSelector>
+            <ui:DataflowBlockDataTemplateSelector>
+                <ui:DataflowBlockDataTemplateSelector.ImageSourceTemplate>
+                    <DataTemplate>
+                        <components:DicomSourceStage />
+                    </DataTemplate>
+                </ui:DataflowBlockDataTemplateSelector.ImageSourceTemplate>
+                <ui:DataflowBlockDataTemplateSelector.ImageTransformTemplate>
+                    <DataTemplate>
+                        <components:DicomTransformStage />
+                    </DataTemplate>
+                </ui:DataflowBlockDataTemplateSelector.ImageTransformTemplate>
+            </ui:DataflowBlockDataTemplateSelector>
+        </ItemsControl.ItemTemplateSelector>
         <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
-                <Canvas 
-                    HorizontalAlignment="Stretch" 
+                <Canvas
+                    HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
-                    Background="Transparent">
-                </Canvas>
+                    Background="Transparent" />
             </ItemsPanelTemplate>
         </ItemsControl.ItemsPanel>
-        <ItemsControl.ItemTemplate>
-            <DataTemplate>
-                <ContentControl Content="{Binding}" />
-            </DataTemplate>
-        </ItemsControl.ItemTemplate>
     </ItemsControl>
 </Window>
