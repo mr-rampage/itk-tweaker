@@ -12,6 +12,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Itk.Tweaker.Ui.Components\Itk.Tweaker.Ui.Components.csproj" />
+      <ProjectReference Include="..\Pipeline.Itk\Pipeline.Itk.fsproj" />
     </ItemGroup>
 
     <ItemGroup>

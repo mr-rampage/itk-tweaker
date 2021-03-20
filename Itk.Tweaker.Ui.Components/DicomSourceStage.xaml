@@ -16,12 +16,7 @@
                     <materialDesign:PackIcon Kind="ImageFilterBlackWhite" />
                 </Button>
             </UniformGrid>
-            <components:DicomImage 
-                ItkImage="{Binding 
-                    RelativeSource={RelativeSource AncestorType=components:DicomStage},
-                    Path=Image,
-                    Mode=OneWayToSource }"
-                DockPanel.Dock="Top" HorizontalAlignment="Center" />
+            <components:DicomImage DockPanel.Dock="Top" HorizontalAlignment="Center" />
         </DockPanel>
     </materialDesign:Card>
 </components:DicomStage>

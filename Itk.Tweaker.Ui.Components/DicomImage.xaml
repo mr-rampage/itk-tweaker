@@ -19,6 +19,10 @@
                 Converter={StaticResource ToggleVisibilityConverter}}" />
     <Image
         Name="ImageThumbnail"
+        Source="{Binding 
+            RelativeSource={RelativeSource AncestorType=components:DicomImage},
+            Path=Thumbnail,
+            Mode=OneWay}"
         Visibility="{Binding
             RelativeSource={RelativeSource Self},
             Path=Source,

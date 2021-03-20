@@ -9,14 +9,4 @@
     <ItemGroup>
       <PackageReference Include="MaterialDesignThemes" Version="4.0.0" />
     </ItemGroup>
-
-    <ItemGroup>
-      <Reference Include="SimpleITKCSharpManaged, Version=2.0.0.512, Culture=neutral, PublicKeyToken=null">
-        <HintPath>..\..\SimpleITK-2.0.2-CSharp-win64-x64\SimpleITKCSharpManaged.dll</HintPath>
-      </Reference>
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\Pipeline.Itk\Pipeline.Itk.fsproj" />
-    </ItemGroup>
 </Project>

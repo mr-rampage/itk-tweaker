@@ -1,8 +1,5 @@
-﻿using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Media;
-using itk.simple;
-using Pipeline.Itk;
 
 namespace Itk.Tweaker.Ui.Components
 {
@@ -13,28 +10,24 @@ namespace Itk.Tweaker.Ui.Components
             InitializeComponent();
         }
 
-        public static readonly DependencyProperty ItkImageProperty =
+        public static readonly DependencyProperty ThumbnailProperty=
             DependencyProperty.Register(
-                nameof(ItkImage), typeof(Image),
+                nameof(Thumbnail), typeof(ImageSource),
                 typeof(DicomImage)
             );
 
-        public Image ItkImage
+        public ImageSource Thumbnail
         {
-            get => (Image)GetValue(ItkImageProperty);
-            set => SetValue(ItkImageProperty, value);
+            get => (ImageSource)GetValue(ThumbnailProperty);
+            set => SetValue(ThumbnailProperty, value);
         }
-        
-        private async void OnDicomImageSelected(object sender, RoutedEventArgs e)
+
+        private void OnDicomImageSelected(object sender, RoutedEventArgs e)
         {
             if (sender is not SelectImageButton selectImageButton) return;
-
             var dicomFolder = selectImageButton.SelectedFolder;
-            var dicom = await Task.Run(() => ItkImageLoader.LoadImage(dicomFolder));
-
-            if (dicom.IsError) return;
-            ItkImage = dicom.ResultValue.Image;
-            ImageThumbnail.Source = dicom.ResultValue.Thumbnail.AsImageSource(PixelFormats.Bgr32);
+            if (!dicomFolder.Exists) return;
+            RaiseEvent(new LoadDicomImageEvent(dicomFolder));
         }
     }
 }

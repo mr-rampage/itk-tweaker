@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.IO;
+using System.Windows;
+using System.Windows.Media;
 
 namespace Itk.Tweaker.Ui.Components
 {
@@ -42,5 +44,16 @@ namespace Itk.Tweaker.Ui.Components
     public sealed class RemovePipelineStageEvent : PipelineEventArg
     {
         
+    }
+
+    public sealed class LoadDicomImageEvent : PipelineEventArg
+    {
+        public DirectoryInfo DicomPath { get; }
+        public ImageSource ImageSource { get; set; }
+
+        internal LoadDicomImageEvent(DirectoryInfo dicomPath)
+        {
+            DicomPath = dicomPath;
+        }
     }
 }
