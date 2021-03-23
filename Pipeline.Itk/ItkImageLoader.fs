@@ -18,7 +18,7 @@ let internal LoadDicomFromFolder(dicomPath: DirectoryInfo) =
     
 let internal CreateDicomImage image =
     image
-    |> ExtractMidSlice AnatomicalPlane.Transverse
+    |> GetMedianSlice AnatomicalPlane.Transverse
     |> Result.bind (ItkResize2D 256)
     |> Result.map (fun thumbnail -> { Image = image; Thumbnail = thumbnail })
 

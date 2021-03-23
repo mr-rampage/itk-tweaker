@@ -1,4 +1,4 @@
-﻿module Pipeline.Itk.Combinators
+﻿module internal Pipeline.Itk.Combinators
 
 
 let Pipe f g x = g(f x)

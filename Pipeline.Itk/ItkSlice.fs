@@ -27,4 +27,4 @@ let internal ItkSlice2D plane index (image: Image) =
 
 let private DivideBy denominator numerator = int(numerator) / denominator
 let private MedianIndex plane = Pipe (CountSlices plane) (DivideBy 2)
-let internal ExtractMidSlice plane = Converge Chain ItkSlice2D MedianIndex plane
+let internal GetMedianSlice plane = Converge Chain ItkSlice2D MedianIndex plane
