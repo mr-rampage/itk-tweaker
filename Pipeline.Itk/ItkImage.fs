@@ -1,15 +1,15 @@
 ﻿module Pipeline.Itk.ItkImage
 
-type internal Axis =
-    | X
-    | Y
-    | Z
+type internal AnatomicalPlane =
+    | Sagittal
+    | Coronal
+    | Transverse
 
-let internal AxisToVectorIndex axis =
+let internal PlaneToVectorIndex axis =
     match axis with
-    | Axis.X -> 0
-    | Axis.Y -> 1
-    | Axis.Z -> 2
+    | AnatomicalPlane.Sagittal -> 0
+    | AnatomicalPlane.Coronal -> 1
+    | AnatomicalPlane.Transverse -> 2
     
 type internal Dimension2D<'T> = { Width: 'T; Height: 'T }
 
