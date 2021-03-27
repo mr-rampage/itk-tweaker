@@ -2,7 +2,6 @@
 
 open Pipeline.Core.Pipeline
 open Pipeline.Itk.ItkGaussian
-open Pipeline.Itk.ItkImageLoader
 open itk.simple
 
 type AddStageEvent =
@@ -14,13 +13,8 @@ let private AdaptAddStageEvent (event: AddStageEvent) =
     | SourceStage () -> id
     | GaussianBlur σ -> ApplyGaussianBlur2D σ
 
-
-let AddImageTransformStage (event: AddStageEvent) (pipeline: Pipeline<Image>) =
-    AddStage AdaptAddStageEvent event pipeline
+let AddStage (event: AddStageEvent) (pipeline: Pipeline<Image>) =
+    let updatedPipeline = event |> AdaptAddStageEvent |> AddTransform pipeline
+    (updatedPipeline, List.last updatedPipeline)
 
 let CreatePipeline () = [id]
-
-let CreateThumbnails sourceImage (pipeline: Pipeline<Image>) =
-    sourceImage
-    |> CreateThumbnail
-    |> Result.map (RunPipeline pipeline)

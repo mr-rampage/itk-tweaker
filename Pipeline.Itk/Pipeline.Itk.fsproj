@@ -13,8 +13,8 @@
       <Compile Include="ItkSlice.fs" />
       <Compile Include="ItkResize.fs" />
       <Compile Include="ItkGaussian.fs" />
-      <Compile Include="ItkImageLoader.fs" />
       <Compile Include="ItkPipeline.fs" />
+      <Compile Include="ItkImageLoader.fs" />
     </ItemGroup>
 
     <ItemGroup>

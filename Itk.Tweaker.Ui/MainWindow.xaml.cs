@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Media;
@@ -40,8 +41,9 @@ namespace Itk.Tweaker.Ui
                 case AddPipelineStageEvent:
                     var thumbnail = await Task.Run(() =>
                     {
-                        _pipeline = ItkPipeline.AddImageTransformStage(ItkPipeline.AddStageEvent.NewGaussianBlur(2), _pipeline);
-                        var transform = _pipeline.ToList().Last();
+                        var (pipeline, transform) = 
+                            ItkPipeline.AddStage(ItkPipeline.AddStageEvent.NewGaussianBlur(2), _pipeline);
+                        _pipeline = pipeline;
                         return transform.Invoke(ItkImageLoader.CreateThumbnail(SourceImage).ResultValue);
                     });
                     Pipeline.Add(thumbnail.AsImageSource(PixelFormats.Bgr32));
