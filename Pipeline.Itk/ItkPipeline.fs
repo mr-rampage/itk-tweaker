@@ -5,12 +5,12 @@ open Pipeline.Itk.ItkGaussian
 open itk.simple
 
 type AddStageEvent =
-    | SourceStage of unit
+    | Identity of unit
     | GaussianBlur of sigma: double
     
 let private AdaptAddStageEvent (event: AddStageEvent) =
     match (event) with
-    | SourceStage () -> id
+    | Identity () -> id
     | GaussianBlur σ -> ApplyGaussianBlur2D σ
 
 let AddStage (event: AddStageEvent) (pipeline: Pipeline<Image>) =
