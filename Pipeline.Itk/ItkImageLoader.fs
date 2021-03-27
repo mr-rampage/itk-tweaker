@@ -16,7 +16,7 @@ let LoadDicomFromFolder(dicomPath: DirectoryInfo) =
     with
     | e -> Error e
     
-let internal CreateThumbnail image =
+let CreateThumbnail image =
     image
     |> GetMedianSlice AnatomicalPlane.Transverse
     |> Result.bind (ItkResize2D 256)

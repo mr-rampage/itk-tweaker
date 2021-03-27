@@ -1,8 +1,11 @@
 ﻿<components:DicomStage x:Class="Itk.Tweaker.Ui.Components.DicomTransformStage"
-                           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                           xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-                           xmlns:components="clr-namespace:Itk.Tweaker.Ui.Components">
+                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                       xmlns:components="clr-namespace:Itk.Tweaker.Ui.Components">
+    <components:DicomStage.Resources>
+        <materialDesign:NullableToVisibilityConverter x:Key="NullVisibilityConverter" />
+    </components:DicomStage.Resources>
     <materialDesign:Card Padding="16">
         <DockPanel>
             <UniformGrid Rows="1" Margin="0 16 0 0" DockPanel.Dock="Bottom">
@@ -16,7 +19,15 @@
                     <materialDesign:PackIcon Kind="ImageFilterBlackWhite" />
                 </Button>
             </UniformGrid>
-            <TextBlock>I'm a Raccoon</TextBlock>
+            <Image
+                Source="{Binding 
+                    RelativeSource={RelativeSource AncestorType=components:DicomTransformStage},
+                    Path=Thumbnail,
+                    Mode=OneWay}"
+                Visibility="{Binding
+                    RelativeSource={RelativeSource Self},
+                    Path=Source,
+                    Converter={StaticResource NullVisibilityConverter}}" />
         </DockPanel>
     </materialDesign:Card>
 </components:DicomStage>

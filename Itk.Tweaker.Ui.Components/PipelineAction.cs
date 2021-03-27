@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using System.Windows;
-using System.Windows.Media;
 
 namespace Itk.Tweaker.Ui.Components
 {

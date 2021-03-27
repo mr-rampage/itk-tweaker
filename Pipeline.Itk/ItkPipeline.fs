@@ -6,15 +6,19 @@ open Pipeline.Itk.ItkImageLoader
 open itk.simple
 
 type AddStageEvent =
-    | Identity
-    | SmoothingRecursiveGaussianImageFilter of sigma: double
+    | SourceStage of unit
+    | GaussianBlur of sigma: double
     
 let private AdaptAddStageEvent (event: AddStageEvent) =
     match (event) with
-    | Identity -> id
-    | SmoothingRecursiveGaussianImageFilter σ -> ApplyGaussianBlur2D σ
+    | SourceStage () -> id
+    | GaussianBlur σ -> ApplyGaussianBlur2D σ
 
-let AddImageTransformStage = AddStage AdaptAddStageEvent
+
+let AddImageTransformStage (event: AddStageEvent) (pipeline: Pipeline<Image>) =
+    AddStage AdaptAddStageEvent event pipeline
+
+let CreatePipeline () = [id]
 
 let CreateThumbnails sourceImage (pipeline: Pipeline<Image>) =
     sourceImage

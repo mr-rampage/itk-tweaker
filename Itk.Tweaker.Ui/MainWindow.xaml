@@ -21,7 +21,12 @@
         <Style TargetType="components:Slice">
             <Setter Property="HeaderTemplate" Value="{StaticResource SliceHeaderTemplate}" />
         </Style>
-        <Style TargetType="{x:Type components:DicomStage}">
+        <Style TargetType="components:DicomSourceStage">
+            <Style.Resources>
+                <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFloatingActionAccentButton}" />
+            </Style.Resources>
+        </Style>
+        <Style TargetType="components:DicomTransformStage">
             <Setter Property="Opacity" Value="0.5" />
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
@@ -29,28 +34,27 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-        <Style TargetType="components:DicomSourceStage" BasedOn="{StaticResource {x:Type components:DicomStage}}" />
-        <Style TargetType="components:DicomTransformStage" BasedOn="{StaticResource {x:Type components:DicomStage}}" />
     </Window.Resources>
     <ItemsControl
         ItemsSource="{Binding 
         RelativeSource={RelativeSource AncestorType=ui:MainWindow},
         Path=Pipeline,
         Mode=OneWay}">
-        <ItemsControl.ItemTemplateSelector>
-            <ui:DataflowBlockDataTemplateSelector>
-                <ui:DataflowBlockDataTemplateSelector.ImageSourceTemplate>
-                    <DataTemplate>
-                        <components:DicomSourceStage />
-                    </DataTemplate>
-                </ui:DataflowBlockDataTemplateSelector.ImageSourceTemplate>
-                <ui:DataflowBlockDataTemplateSelector.ImageTransformTemplate>
-                    <DataTemplate>
-                        <components:DicomTransformStage />
-                    </DataTemplate>
-                </ui:DataflowBlockDataTemplateSelector.ImageTransformTemplate>
-            </ui:DataflowBlockDataTemplateSelector>
-        </ItemsControl.ItemTemplateSelector>
+        <ItemsControl.Style>
+            <Style TargetType="ItemsControl">
+                <Style.Triggers>
+                    <Trigger Property="HasItems" Value="False">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <components:DicomSourceStage />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </ItemsControl.Style>
         <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
                 <Canvas
@@ -59,5 +63,10 @@
                     Background="Transparent" />
             </ItemsPanelTemplate>
         </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemTemplate>
+            <DataTemplate>
+                <components:DicomTransformStage Thumbnail="{Binding}" />
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
     </ItemsControl>
 </Window>
