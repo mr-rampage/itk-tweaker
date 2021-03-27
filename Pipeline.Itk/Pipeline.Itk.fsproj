@@ -9,17 +9,22 @@
         <Link>SimpleITKCSharpNative.dll</Link>
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
-      <Compile Include="Combinators.fs" />
       <Compile Include="ItkImage.fs" />
       <Compile Include="ItkSlice.fs" />
       <Compile Include="ItkResize.fs" />
+      <Compile Include="ItkGaussian.fs" />
       <Compile Include="ItkImageLoader.fs" />
+      <Compile Include="ItkPipeline.fs" />
     </ItemGroup>
 
     <ItemGroup>
       <Reference Include="SimpleITKCSharpManaged, Version=2.0.0.512, Culture=neutral, PublicKeyToken=null">
         <HintPath>..\..\SimpleITK-2.0.2-CSharp-win64-x64\SimpleITKCSharpManaged.dll</HintPath>
       </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Pipeline.Core\Pipeline.Core.fsproj" />
     </ItemGroup>
 
 </Project>

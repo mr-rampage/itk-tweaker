@@ -49,7 +49,6 @@ namespace Itk.Tweaker.Ui.Components
     public sealed class LoadDicomImageEvent : PipelineEventArg
     {
         public DirectoryInfo DicomPath { get; }
-        public ImageSource ImageSource { get; set; }
 
         internal LoadDicomImageEvent(DirectoryInfo dicomPath)
         {

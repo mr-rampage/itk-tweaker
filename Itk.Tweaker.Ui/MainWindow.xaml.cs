@@ -17,13 +17,6 @@ namespace Itk.Tweaker.Ui
         public MainWindow()
         {
             InitializeComponent();
-            Loaded += OnLoaded;
-        }
-
-        private void OnLoaded(object sender, RoutedEventArgs e)
-        {
-            var dataflowBlock = new BufferBlock<Image>();
-            Pipeline.Add(dataflowBlock);
         }
 
         private async void HandlePipelineEvents(object sender, PipelineEventArg e)
@@ -36,15 +29,10 @@ namespace Itk.Tweaker.Ui
                     dicomImage.Thumbnail = dicom.ResultValue.Thumbnail.AsImageSource(PixelFormats.Bgr32);
                     break;
                 case AddPipelineStageEvent:
-                    //var transformStage = new DicomTransformStage();
-                    Pipeline.Add(new TransformBlock<Image, Image>(x => x));
                     break;
                 case RemovePipelineStageEvent when e.OriginalSource is IDicomStage stage:
-                    //Pipeline.Remove(stage);
                     break;
             }
         }
-
-        public ObservableCollection<IDataflowBlock> Pipeline { get; } = new();
     }
 }

@@ -1,6 +1,6 @@
 ﻿module Pipeline.Itk.ItkSlice
 
-open Pipeline.Itk.Combinators
+open Pipeline.Core.Combinators
 open Pipeline.Itk.ItkImage
 open itk.simple
 
@@ -26,5 +26,5 @@ let internal ItkSlice2D plane index (image: Image) =
     Ok(SimpleITK.Extract(image,size,index))
 
 let private DivideBy denominator numerator = int(numerator) / denominator
-let private MedianIndex plane = Pipe (CountSlices plane) (DivideBy 2)
+let private MedianIndex plane = (CountSlices plane) >> (DivideBy 2)
 let internal GetMedianSlice plane = Converge Chain ItkSlice2D MedianIndex plane

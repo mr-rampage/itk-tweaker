@@ -6,7 +6,7 @@ open Pipeline.Itk.ItkSlice
 open Pipeline.Itk.ItkResize
 open itk.simple
 
-let internal LoadDicomFromFolder(dicomPath: DirectoryInfo) =
+let LoadDicomFromFolder(dicomPath: DirectoryInfo) =
     try
         use imageSeriesReader = new ImageSeriesReader()
         use fileNames = ImageSeriesReader.GetGDCMSeriesFileNames dicomPath.FullName
@@ -16,10 +16,13 @@ let internal LoadDicomFromFolder(dicomPath: DirectoryInfo) =
     with
     | e -> Error e
     
-let internal CreateDicomImage image =
+let internal CreateThumbnail image =
     image
     |> GetMedianSlice AnatomicalPlane.Transverse
     |> Result.bind (ItkResize2D 256)
+    
+let internal CreateDicomImage image =
+    CreateThumbnail image
     |> Result.map (fun thumbnail -> { Image = image; Thumbnail = thumbnail })
 
 let LoadImage (dicomFolder: DirectoryInfo) =
