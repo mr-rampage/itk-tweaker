@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using Itk.Tweaker.Ui.Components;
-using Microsoft.FSharp.Collections;
-using Microsoft.FSharp.Core;
 using Pipeline.Itk;
 using Image = itk.simple.Image;
 
@@ -16,12 +12,10 @@ namespace Itk.Tweaker.Ui
     /// </summary>
     public partial class MainWindow
     {
-        private FSharpList<FSharpFunc<Image, Image>> _pipeline;
 
         public MainWindow()
         {
             InitializeComponent();
-            _pipeline = ItkPipeline.CreatePipeline<Image>();
         }
 
         public ObservableCollection<ImageSource> Pipeline { get; } = new();
@@ -41,9 +35,7 @@ namespace Itk.Tweaker.Ui
                 case AddPipelineStageEvent:
                     var thumbnail = await Task.Run(() =>
                     {
-                        var (pipeline, transform) = 
-                            ItkPipeline.AddStage(ItkPipeline.AddStageEvent.NewGaussianBlur(2), _pipeline);
-                        _pipeline = pipeline;
+                        var transform = ItkPipeline.AddStage(ItkPipeline.AddStageEvent.NewGaussianBlur(5));
                         return transform.Invoke(ItkImageLoader.CreateThumbnail(SourceImage).ResultValue);
                     });
                     Pipeline.Add(thumbnail.AsImageSource(PixelFormats.Bgr32));

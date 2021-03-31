@@ -11,6 +11,6 @@ type Pipeline<'T> = TransformStage<'T> list
 let AddTransform (pipeline: Pipeline<'T>) (stage: TransformStage<'T>) =
     if (pipeline.IsEmpty)
     then [ stage ]
-    else pipeline @ [ (List.last pipeline) >> stage ]
+    else (pipeline.Head >> stage) :: pipeline
 
 let RunPipeline pipeline x = List.map (Thrush x) pipeline
