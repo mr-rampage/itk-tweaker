@@ -18,4 +18,4 @@ type TestPipeline() =
             |> Flip AddTransform (fun i -> i * 2)
             |> Flip AddTransform (fun i -> i * 2)
 
-        Assert.AreEqual([ 198; 396 ], RunPipeline pipeline 99)
+        Assert.AreEqual([ 396; 198 ], RunPipeline pipeline 99)
