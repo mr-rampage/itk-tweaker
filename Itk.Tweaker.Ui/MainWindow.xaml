@@ -26,14 +26,6 @@
                 <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFloatingActionAccentButton}" />
             </Style.Resources>
         </Style>
-        <Style TargetType="components:DicomTransformStage">
-            <Setter Property="Opacity" Value="0.5" />
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Control.Opacity" Value="1.0" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
     </Window.Resources>
     <ItemsControl
         ItemsSource="{Binding 
@@ -57,15 +49,13 @@
         </ItemsControl.Style>
         <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
-                <Canvas
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch"
+                <WrapPanel
                     Background="Transparent" />
             </ItemsPanelTemplate>
         </ItemsControl.ItemsPanel>
         <ItemsControl.ItemTemplate>
             <DataTemplate>
-                <components:DicomTransformStage Thumbnail="{Binding}" />
+                <components:DicomTransformStage Thumbnail="{Binding}" Width="256" />
             </DataTemplate>
         </ItemsControl.ItemTemplate>
     </ItemsControl>

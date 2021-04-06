@@ -12,14 +12,6 @@ namespace Itk.Tweaker.Ui.Components
     {
         protected DicomStage()
         {
-            Loaded += OnLoaded;
-        }
-
-        private void OnLoaded(object sender, RoutedEventArgs e)
-        {
-            AdornerLayer
-                .GetAdornerLayer(this)
-                ?.Add(new MoveableAdorner(this));
         }
 
         protected void AddPipelineStage(object sender, RoutedEventArgs e) 
